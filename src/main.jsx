@@ -1,21 +1,15 @@
 import { StrictMode } from 'react'
-import ReactDOM from 'react-dom/client'
-import { RouterProvider, createRouter } from '@tanstack/react-router'
-import { routeTree } from './routeTree.gen'
+import { createRoot, hydrateRoot } from 'react-dom/client'
+import { RouterProvider } from '@tanstack/react-router'
+import { RouterClient } from '@tanstack/react-router/ssr/client'
+import { createRouter } from './router'
 
-const basepath = import.meta.env.BASE_URL.replace(/\/$/, '') || '/'
+const router = createRouter()
 
-const router = createRouter({
-  routeTree,
-  basepath,
-})
-
-const rootElement = document.getElementById('root')
-
-if (!rootElement.innerHTML) {
-  const root = ReactDOM.createRoot(rootElement)
-
-  root.render(
+if (window.$_TSR) {
+  hydrateRoot(document, <RouterClient router={router} />)
+} else {
+  createRoot(document).render(
     <StrictMode>
       <RouterProvider router={router} />
     </StrictMode>,

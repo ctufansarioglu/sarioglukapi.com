@@ -8,6 +8,16 @@ export function usePhotoSwipeGallery(galleryRef, dependencyKey) {
 
     if (!gallery) return undefined
 
+    // Cached images can finish loading before React hydrates their onLoad handler.
+    const updateSize = (image) => {
+      if (!image.naturalWidth || !image.naturalHeight) return
+      const link = image.closest('[data-pswp-item]')
+      if (!link) return
+      link.dataset.pswpWidth = image.naturalWidth
+      link.dataset.pswpHeight = image.naturalHeight
+    }
+    gallery.querySelectorAll('img').forEach(updateSize)
+
     const lightbox = new PhotoSwipeLightbox({
       gallery,
       children: 'a[data-pswp-item]',
@@ -15,6 +25,15 @@ export function usePhotoSwipeGallery(galleryRef, dependencyKey) {
       bgOpacity: 0.94,
       wheelToZoom: true,
       paddingFn: () => ({ top: 56, bottom: 88, left: 24, right: 24 }),
+    })
+
+    lightbox.addFilter('itemData', (itemData) => {
+      const image = itemData.element?.querySelector('img')
+      if (image?.naturalWidth && image.naturalHeight) {
+        itemData.width = image.naturalWidth
+        itemData.height = image.naturalHeight
+      }
+      return itemData
     })
 
     lightbox.on('uiRegister', () => {

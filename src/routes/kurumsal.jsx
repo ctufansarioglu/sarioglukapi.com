@@ -1,8 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router'
 import styled from '@emotion/styled'
 import { Container } from '../components/common/Container'
+import { pageHead } from '../data/seo'
 
-export const Route = createFileRoute('/kurumsal')({ component: CorporatePage })
+export const Route = createFileRoute('/kurumsal')({
+  head: () => pageHead('/kurumsal'),
+  component: CorporatePage,
+})
 
 const Section = styled.section`padding: 76px 0 24px;`
 const Grid = styled(Container)`display: grid; grid-template-columns: .8fr 1.2fr; gap: 72px; @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) { grid-template-columns: 1fr; gap: 28px; }`

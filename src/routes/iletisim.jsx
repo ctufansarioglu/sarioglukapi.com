@@ -2,8 +2,12 @@ import { createFileRoute } from '@tanstack/react-router'
 import styled from '@emotion/styled'
 import { Container } from '../components/common/Container'
 import { AnchorButton } from '../components/common/Button'
+import { pageHead } from '../data/seo'
 
-export const Route = createFileRoute('/iletisim')({ component: ContactPage })
+export const Route = createFileRoute('/iletisim')({
+  head: () => pageHead('/iletisim'),
+  component: ContactPage,
+})
 
 const Section = styled.section`padding: 76px 0 24px;`
 const Grid = styled(Container)`display: grid; grid-template-columns: 1fr 1fr; gap: 64px; @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) { grid-template-columns: 1fr; }`

@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import { Outlet } from '@tanstack/react-router'
 import { Header } from '../components/layout/Header'
 import { Footer } from '../components/layout/Footer'
+import { ContactButton } from '../components/common/ContactButton'
 
 const Page = styled.div`
   min-height: 100vh;
@@ -23,6 +24,7 @@ export function SiteLayout() {
         <Outlet />
       </Main>
       <Footer />
+      <ContactButton />
     </Page>
   )
 }

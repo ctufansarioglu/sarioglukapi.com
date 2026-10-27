@@ -6,6 +6,15 @@ const categoryImageModules = import.meta.glob(
   },
 )
 
+const categoryImageDimensions = import.meta.glob(
+  '../assets/images/categories/*/*.png',
+  {
+    eager: true,
+    query: '?dimensions',
+    import: 'default',
+  },
+)
+
 export const categoryFolderBySlug = {
   'ahsap-dograma-kapi-modelleri': 'ahsap',
   'amerikan-panel-kapi-modelleri': 'amerikan-panel',
@@ -47,6 +56,7 @@ export function getCategoryImages(slug) {
 
       return {
         src,
+        ...categoryImageDimensions[path],
         path,
         fileName,
         number: getModelNumber(fileName),

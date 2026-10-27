@@ -57,8 +57,8 @@ export function getCategoryProducts(category) {
       name: `${category.shortName} Kapı ${number}`,
       image: image.src,
       fileName: image.fileName,
-      width: 1122,
-      height: 1402,
+      width: image.width,
+      height: image.height,
     }
   })
 }

@@ -76,34 +76,25 @@ const Code = styled.span`
 `
 
 export function ProductCard({ product }) {
-  const handleImageLoad = (event) => {
-    const image = event.currentTarget
-    const link = image.closest('[data-pswp-item]')
-
-    if (!link) return
-
-    link.dataset.pswpWidth = image.naturalWidth
-    link.dataset.pswpHeight = image.naturalHeight
-  }
-
   return (
     <Card>
       {product.image ? (
         <ImageLink
           href={product.image}
           data-pswp-item
-          data-pswp-width="1"
-          data-pswp-height="1"
+          data-pswp-width={product.width}
+          data-pswp-height={product.height}
           data-model-code={product.id}
           data-model-name={product.name}
           aria-label={`${product.id} kodlu ${product.name} modelini büyüt`}
         >
           <Image
             src={product.image}
+            width={product.width}
+            height={product.height}
             alt={`${product.name} modeli`}
             loading="lazy"
             decoding="async"
-            onLoad={handleImageLoad}
           />
         </ImageLink>
       ) : (

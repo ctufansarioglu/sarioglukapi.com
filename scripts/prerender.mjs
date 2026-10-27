@@ -2,6 +2,7 @@ import assert from 'node:assert/strict'
 import { access, mkdir, readFile, writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { render, getRoutePaths, pages, canonicalUrl, siteUrl, categories } from '../dist-ssr/entry-server.js'
+import { catalog } from '../src/data/catalog.js'
 
 const dist = resolve('dist')
 const viteManifest = JSON.parse(await readFile(resolve(dist, '.vite/manifest.json'), 'utf8'))
@@ -47,6 +48,7 @@ for (const page of pages) {
   assert(head.includes(`href="${url}"`), `Wrong canonical: ${page.path}`)
   assert(!head.includes('noindex'), `Indexing disabled: ${page.path}`)
   assert(!html.includes('<!--$!-->'), `Unresolved Suspense: ${page.path}`)
+  assert(html.includes(`href="${catalog.path}"`), `Missing catalog download: ${page.path}`)
   const category = categories.find((item) => `/${item.slug}` === page.path)
   if (category) {
     assert.equal((html.match(/<a\b[^>]*\bdata-pswp-item=/g) ?? []).length, category.count, `Missing products: ${page.path}`)

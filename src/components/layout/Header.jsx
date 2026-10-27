@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import { Link } from '@tanstack/react-router'
 import { Container } from '../common/Container'
 import { navigationItems } from '../../data/navigation'
+import { CatalogDownload } from '../common/CatalogDownload'
 
 const HeaderBar = styled.header`
   position: sticky;
@@ -43,8 +44,28 @@ const Nav = styled.nav`
 `
 const NavLink = styled(Link)`font-size: .86rem; font-weight: 560; color: ${({ theme }) => theme.colors.textMuted}; &:hover { color: ${({ theme }) => theme.colors.text}; }`
 const MenuButton = styled.button`display: none; border: 0; background: transparent; padding: 8px 0; color: inherit; font-size: .86rem; font-weight: 600; @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) { display: inline-flex; }`
+const Actions = styled.div`
+  display: flex; align-items: center; gap: 24px;
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) { gap: 12px; }
+`
+const CatalogButton = styled(CatalogDownload)`
+  min-height: 38px; padding: 0 12px; font-size: .8rem; white-space: nowrap;
+`
 
 export function Header() {
   const [open, setOpen] = useState(false)
-  return <HeaderBar><Inner><Brand to="/" onClick={() => setOpen(false)}>SARIOĞLU <span>Orman Ürünleri</span></Brand><MenuButton onClick={() => setOpen((value) => !value)} aria-label="Menüyü aç veya kapat">Menü</MenuButton><Nav open={open}>{navigationItems.map((item) => <NavLink key={item.label} to={item.to} hash={item.hash} onClick={() => setOpen(false)}>{item.label}</NavLink>)}</Nav></Inner></HeaderBar>
+  return (
+    <HeaderBar>
+      <Inner>
+        <Brand to="/" onClick={() => setOpen(false)}>SARIOĞLU <span>Orman Ürünleri</span></Brand>
+        <Actions>
+          <Nav open={open}>
+            {navigationItems.map((item) => <NavLink key={item.label} to={item.to} hash={item.hash} onClick={() => setOpen(false)}>{item.label}</NavLink>)}
+          </Nav>
+          <CatalogButton compact />
+          <MenuButton onClick={() => setOpen((value) => !value)} aria-label="Menüyü aç veya kapat" aria-expanded={open}>Menü</MenuButton>
+        </Actions>
+      </Inner>
+    </HeaderBar>
+  )
 }

@@ -6,7 +6,7 @@ import {
 import { createRouter } from './router'
 
 export { pages, canonicalUrl, siteUrl } from './data/seo'
-export { categories } from './data/categories'
+export { categories, getCategoryProducts } from './data/categories'
 
 export async function render(url, manifest) {
   const handler = createRequestHandler({

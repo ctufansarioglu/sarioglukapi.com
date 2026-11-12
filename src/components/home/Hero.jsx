@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
 import { Container } from '../common/Container'
 import { ButtonLink } from '../common/Button'
-import { CatalogDownload } from '../common/CatalogDownload'
 
 import heroWorkshopImage from '../../assets/images/home/hero-workshop.webp'
 
@@ -110,7 +109,6 @@ export function Hero() {
               Kapı Modelleri
             </ButtonLink>
 
-            <CatalogDownload variant="outline" />
           </Actions>
         </Content>
 

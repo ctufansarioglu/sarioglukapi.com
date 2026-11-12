@@ -2,7 +2,6 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import { tanstackRouter } from '@tanstack/router-plugin/vite'
 import { imageDimensionsPlugin } from './scripts/image-dimensions-plugin.mjs'
-import { catalogDevPlugin } from './scripts/catalog-dev-plugin.mjs'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -13,7 +12,6 @@ export default defineConfig({
   build: { manifest: true },
   plugins: [
     imageDimensionsPlugin(),
-    catalogDevPlugin(),
     // Please make sure that '@tanstack/router-plugin' is passed before '@vitejs/plugin-react'
     tanstackRouter({
       target: 'react',

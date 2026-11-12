@@ -2,7 +2,6 @@ import styled from '@emotion/styled'
 import { Container } from '../common/Container'
 import { ProductGrid } from './ProductGrid'
 import { getCategoryProducts } from '../../data/categories'
-import { CatalogDownload } from '../common/CatalogDownload'
 
 const Header = styled.section`padding: 68px 0 46px; border-bottom: 1px solid ${({ theme }) => theme.colors.border};`
 const Kicker = styled.span`display: block; margin-bottom: 15px; color: ${({ theme }) => theme.colors.textMuted}; font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;`
@@ -17,5 +16,5 @@ const HeaderActions = styled.div`
 
 export function CategoryPage({ category }) {
   const products = getCategoryProducts(category)
-  return <><Header><Container><Kicker>Kapı Modelleri</Kicker><Title>{category.name}</Title><Description>{category.description}</Description><HeaderActions><Count>{category.count} model</Count><CatalogDownload variant="outline" /></HeaderActions></Container></Header><Products><Container><ProductGrid products={products} /></Container></Products></>
+  return <><Header><Container><Kicker>Kapı Modelleri</Kicker><Title>{category.name}</Title><Description>{category.description}</Description><HeaderActions><Count>{category.count} model</Count></HeaderActions></Container></Header><Products><Container><ProductGrid products={products} /></Container></Products></>
 }

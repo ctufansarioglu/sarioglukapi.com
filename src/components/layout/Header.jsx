@@ -3,7 +3,6 @@ import styled from '@emotion/styled'
 import { Link } from '@tanstack/react-router'
 import { Container } from '../common/Container'
 import { navigationItems } from '../../data/navigation'
-import { CatalogDownload } from '../common/CatalogDownload'
 
 const HeaderBar = styled.header`
   position: sticky;
@@ -48,9 +47,6 @@ const Actions = styled.div`
   display: flex; align-items: center; gap: 24px;
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) { gap: 12px; }
 `
-const CatalogButton = styled(CatalogDownload)`
-  min-height: 38px; padding: 0 12px; font-size: .8rem; white-space: nowrap;
-`
 
 export function Header() {
   const [open, setOpen] = useState(false)
@@ -62,7 +58,6 @@ export function Header() {
           <Nav open={open}>
             {navigationItems.map((item) => <NavLink key={item.label} to={item.to} hash={item.hash} onClick={() => setOpen(false)}>{item.label}</NavLink>)}
           </Nav>
-          <CatalogButton compact />
           <MenuButton onClick={() => setOpen((value) => !value)} aria-label="Menüyü aç veya kapat" aria-expanded={open}>Menü</MenuButton>
         </Actions>
       </Inner>

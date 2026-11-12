@@ -7,7 +7,7 @@ import { generateCatalog } from './catalog.mjs'
 await generateCatalog({
   sections: categories.map(category => ({ ...category, products: getCategoryProducts(category) })),
   siteUrl,
-  output: resolve('dist', catalog.fileName),
+  output: resolve(process.env.CATALOG_OUTPUT || `node_modules/.cache/${catalog.fileName}`),
   imagePath: product => {
     assert(product.image.startsWith('/assets/'), `Unexpected catalog asset: ${product.image}`)
     return resolve('dist', `.${product.image}`)

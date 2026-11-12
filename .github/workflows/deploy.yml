@@ -44,6 +44,9 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Verify Pages output contains no PDFs
+        run: node scripts/check-pages-output.mjs
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
@@ -55,3 +58,21 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Generate catalog outside Pages output
+        env:
+          CATALOG_OUTPUT: ${{ runner.temp }}/sarioglu-kapi-katalogu.pdf
+        run: node scripts/generate-catalog.mjs
+
+      - name: Email catalog
+        env:
+          CATALOG_OUTPUT: ${{ runner.temp }}/sarioglu-kapi-katalogu.pdf
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          SUBSCRIBERS: ${{ secrets.SUBSCRIBERS }}
+        run: node scripts/send-catalog.mjs
+
+      - name: Remove temporary catalog
+        if: always()
+        env:
+          CATALOG_OUTPUT: ${{ runner.temp }}/sarioglu-kapi-katalogu.pdf
+        run: rm -f -- "$CATALOG_OUTPUT"

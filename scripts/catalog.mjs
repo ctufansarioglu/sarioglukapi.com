@@ -89,7 +89,7 @@ export async function generateCatalog({ sections, siteUrl, output, imagePath }) 
     text('Sarıoğlu Orman Ürünleri', M, 667, { size: 12, bold: true })
     text('Harsat, 13. Sokak No:19, Tosya / Kastamonu', M, 695, { size: 9, color: colors.muted })
     text('0533 361 00 68 · Cemil Sarıoğlu', M, 716, { size: 9, color: colors.muted })
-    text('sariogluormanurunleri@gmail.com', M, 737, { size: 9, color: colors.muted })
+    text('iletisim@sarioglukapi.com', M, 737, { size: 9, color: colors.muted })
 
     let embedded = 0
     for (const [sectionIndex, section] of sections.entries()) {

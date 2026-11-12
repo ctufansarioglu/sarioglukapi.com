@@ -5,6 +5,12 @@ on:
     branches: ['main']
 
   workflow_dispatch:
+    inputs:
+      send_catalog:
+        description: 'Kataloğu alıcılara e-posta ile gönder'
+        required: true
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -60,11 +66,13 @@ jobs:
         uses: actions/deploy-pages@v4
 
       - name: Generate catalog outside Pages output
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.send_catalog }}
         env:
           CATALOG_OUTPUT: ${{ runner.temp }}/sarioglu-kapi-katalogu.pdf
         run: node scripts/generate-catalog.mjs
 
       - name: Email catalog
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.send_catalog }}
         env:
           CATALOG_OUTPUT: ${{ runner.temp }}/sarioglu-kapi-katalogu.pdf
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
@@ -72,7 +80,7 @@ jobs:
         run: node scripts/send-catalog.mjs
 
       - name: Remove temporary catalog
-        if: always()
+        if: ${{ always() && github.event_name == 'workflow_dispatch' && inputs.send_catalog }}
         env:
           CATALOG_OUTPUT: ${{ runner.temp }}/sarioglu-kapi-katalogu.pdf
         run: rm -f -- "$CATALOG_OUTPUT"

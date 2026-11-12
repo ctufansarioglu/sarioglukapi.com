@@ -21,7 +21,7 @@ Build önce istemci dosyalarını `dist/`, ardından yalnızca üretim sırasın
 
 ## Katalog e-postası
 
-GitHub Actions, Pages yayını tamamlandıktan sonra kataloğu runner'ın geçici dizininde üretir ve Resend üzerinden e-posta eki olarak gönderir. PDF `dist/` içinde oluşturulmaz, Pages veya Actions artifact olarak yüklenmez ve gönderimden sonra geçici dosya silinir. Her `main` push ve elle çalıştırma bir gönderim başlatır. Alıcılara ayrı e-postalar gönderilir; aynı çalıştırmanın yeniden denenmesinde Resend idempotency anahtarı kullanılır.
+GitHub Actions, Pages yayını tamamlandıktan sonra kataloğu runner'ın geçici dizininde üretir ve Resend üzerinden e-posta eki olarak gönderir. PDF `dist/` içinde oluşturulmaz, Pages veya Actions artifact olarak yüklenmez ve gönderimden sonra geçici dosya silinir. Normal `main` push işlemleri ve varsayılan elle çalıştırmalar e-posta göndermez. Göndermek için GitHub’da **Actions → Deploy static content to Pages → Run workflow** bölümünde `main` dalını seçin, **Kataloğu alıcılara e-posta ile gönder** seçeneğini işaretleyin ve workflow’u başlatın. Bu işlem siteyi de yeniden yayımlar; yayın başarılı olduktan sonra katalog gönderilir. Alıcılara ayrı e-postalar gönderilir; aynı çalıştırmanın yeniden denenmesinde Resend idempotency anahtarı kullanılır.
 
 GitHub deposunda **Settings → Secrets and variables → Actions → Secrets** altında şu repository secret'ları oluşturun:
 
